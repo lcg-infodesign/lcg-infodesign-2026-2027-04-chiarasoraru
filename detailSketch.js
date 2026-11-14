@@ -1,9 +1,8 @@
 let backgroundColor = '#1E243C';
 let boxColor = '#2D3458';
-let boxSelectedColor = '#454D7A'; //riquadro per metterci gli altri anni
 let textColor = '#FFFFFF';
 let accentColor = '#EBD84B';
-let linkHoverColor = '#D6ECFF';
+let linkHoverColor = '#D6ECFF'; 
 let femmineColor = '#8A5CF5';  // viola
 let maschiColor = '#FF9F3F';   // arancione
 
@@ -47,7 +46,6 @@ function draw() {
 
     // impostazioni per tutti i testi
     noStroke();
-    textAlign(LEFT, TOP);
     
     // Link Torna a tutti i paesi
     let linkText = '← Torna a tutti i paesi';
@@ -82,28 +80,25 @@ function draw() {
         fill(textColor);
         textStyle(BOLD);
         textSize(32);
-        text(countryRow.get("Paese"), margin, 55);
-        textStyle(NORMAL);
+        text(countryRow.get("Paese"), margin, 90);
         textSize(14);
-        text("Bambini nati da madri di 25-34 anni, femmine e maschi, dal 2020 al 2023", margin, 100);
+        text("In dettaglio, quante femmine e maschi sono nati dal 2020 al 2023", margin, 118);
 
-        // Legenda 
+        // Legenda
         let xLegenda = width - margin - 440;
-        fill(boxColor);
-        rect(xLegenda - 16, margin - 6, 412, 92);
-
         fill(textColor);
-        textStyle(BOLD);
         textSize(13);
-        text("Legenda:", xLegenda, margin + 4);
-        textStyle(NORMAL);
-        text("Più il petalo è lungo, più bambini sono nati.", xLegenda, margin + 24);
+        text("Legenda:", xLegenda, margin + 14);
+        text("Ogni riquadro è un anno.", xLegenda, margin + 34);
+        text("Più il petalo è lungo, più bambini sono nati.", xLegenda, margin + 52);
         fill(femmineColor);
-        ellipse(xLegenda + 6, margin + 60, 8, 18);
-        text("femmine", xLegenda + 18, margin + 53);
+        ellipse(xLegenda + 6, margin + 76, 8, 18);
+        text("femmine", xLegenda + 18, margin + 81);
         fill(maschiColor);
-        ellipse(xLegenda + 106, margin + 60, 8, 18);
-        text("maschi", xLegenda + 118, margin + 53);
+        ellipse(xLegenda + 106, margin + 76, 8, 18);
+        text("maschi", xLegenda + 118, margin + 81);
+        fill(textColor);
+        text("La scala è la stessa per tutti e 4 gli anni.", xLegenda, margin + 106);
        
          // femmine e maschi di ogni anno e valore più alto 
         let femmine = [];
