@@ -46,7 +46,7 @@ function draw() {
     noStroke();
     textAlign(LEFT, TOP);
     
-    // Link "Torna a tutti i paesi"
+    // Link Torna a tutti i paesi
     let linkText = '← Torna a tutti i paesi';
     let linkColor = textColor;          // colore normale
     if (overLink()) {
@@ -75,7 +75,7 @@ function draw() {
     if (countryRow) {
         let nome = countryRow.get("Paese");
 
-        // femmine e maschi di ogni anno, totale dei 4 anni e val più alto
+        // femmine e maschi di ogni anno
         let femmine = [];
         let maschi = [];
         let totale = 0;
@@ -92,3 +92,19 @@ function draw() {
             }
 
         }
+
+// torna a tutti i paesi
+function overLink() {
+    return mouseX > margin && mouseX < margin + 190 && mouseY > 15 && mouseY < 42;
+}
+
+//torna alla pagina di insieme
+function mouseClicked() {
+    if (overLink()) {
+        window.location.href = 'index.html';
+    }
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
