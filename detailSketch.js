@@ -1,7 +1,8 @@
 let backgroundColor = '#1E243C';
 let boxColor = '#2D3458';
 let textColor = '#FFFFFF';
-let linkHoverColor = '#D6ECFF'; 
+let accentColor = '#EBD84B';
+let linkHoverColor = '#D6ECFF';
 
 // colori CSV uguali in tuttele pagines
 let years = ["2020", "2021", "2022", "2023"];
@@ -44,13 +45,15 @@ function draw() {
     // impostazioni per tutti i testi
     noStroke();
     textAlign(LEFT, TOP);
-
-    // Link "Torna a tutti i paesi": con il mouse sopra diventa giallo e si sottolinea
+    
+    // Link "Torna a tutti i paesi"
     let linkText = '← Torna a tutti i paesi';
-    let linkHoverColor = '#D6ECFF'
+    let linkColor = textColor;          // colore normale
     if (overLink()) {
-        linkColor = accentColor;
+        linkColor = linkHoverColor;     // mouse sopra
     }
+    
+    
     fill(linkColor);
     textStyle(BOLD);
     textSize(15);
@@ -59,47 +62,33 @@ function draw() {
         stroke(linkColor);
         strokeWeight(1.5);
         line(margin, 40, margin + textWidth(linkText), 40);  // sottolineatura
-        noStroke();  // i testi successivi non devono avere contorno
-    }
+        noStroke(); 
+      }
+        
 
-    // il cursore diventa una manina sopra il link
+    // manina
     cursor(overLink() ? 'pointer' : 'default');
-    let famineRow = data.findRow(selectedFamineId, "famine_id");
+    
+     //riga paese
+    let countryRow = data.findRow(selectedCountryCode, "Codice");
 
-    if (famineRow) {
-        let duration = int(famineRow.get("deaths"));
-        let midpoint = float(famineRow.get("Excess Mortality midpoint"));
-        let upper = float(famineRow.get("Excess Mortality upper"));
+    if (countryRow) {
+        let nome = countryRow.get("Paese");
 
-        let numPallini = upper / 100000;
-        let numPalliniPieni = midpoint / 100000;
+        // femmine e maschi di ogni anno, totale dei 4 anni e val più alto
+        let femmine = [];
+        let maschi = [];
+        let totale = 0;
+        let massimo = 0;
+        for (let i = 0; i < 4; i++) {
+            let f = int(countryRow.get("F_" + years[i]));
+            let m = int(countryRow.get("M_" + years[i]));
+            femmine.push(f);
+            maschi.push(m);
+            totale = totale + f + m;
+            massimo = max(massimo, f, m);
+        }
 
-        let diametro = 15;
-        let padding = 5;
-
-        let posX = 20;
-        let posY = 20;
-
-
-        for (let i = 0; i < numPallini; i++) {
-
-            if (i < numPalliniPieni) {
-                fill(accentColor);
-                stroke(accentColor);
-            } else {
-                noFill();
-                stroke(accentColor);
-            }
-            circle(posX, posY, diametro);
-
-            posX += diametro + padding;
-
-            // Va a capo quando il prossimo pallino uscirebbe dal canvas (con margine di 20)
-            if (posX + diametro > width - 20) {
-                posX = 20;
-                posY += diametro + padding;
             }
 
         }
-    }
-}
