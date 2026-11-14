@@ -32,7 +32,6 @@ async function setup() {
     // Legge i parametri passati nell’URL (es. ?famine=123)
     let params = getURLParams();
 
-    // salvo l'id della carestia selezionata
     selectedCountryCode = params.paese;
 
     // creo il canvas
@@ -111,46 +110,72 @@ function draw() {
             maschi.push(m);
             massimo = max(massimo, f, m);
         }
-       // Un fiore per ogni anno
-        let dimColonna = (width - 2 * margin) / 4;
-        let yFiore = height - 150;                                  // dove sta il pallino
-        let maxLength = min(yFiore - 200, dimColonna * 0.85);       // petalo più lungo
+       // Un riquadro per ogni anno
+        let larghezzaBox = 520;
+        let spazio = 60;                                            // spazio tra le colonne
+        let altezzaBox = (height - 205 - margin - 20) / 2;
+        let xInizio = (width - 2 * larghezzaBox - spazio) / 2;      // così i riquadri stanno al centro
+        let maxLength = altezzaBox - 90;                            // petalo più lungo
 
         for (let i = 0; i < 4; i++) {
             let f = femmine[i];
             let m = maschi[i];
-            let totale = int(countryRow.get(years[i]));   // totale dell'anno (colonne 2020-2023)
-            let xFiore = margin + dimColonna * (i + 0.5);
+            let totale = int(countryRow.get(years[i]));   // colonne 2020-2023
 
+            // percentuali 
+            let percF = round(f / totale * 100);
+            let percM = round(m / totale * 100);
+
+            // colonna
+            let colonna = i % 2;
+            // riga
+            let riga = 0;
+            if (i >= 2) {
+                riga = 1;
+            }
+
+            // angolo in alto a sinistra del riquadro
+            let xBox = xInizio + colonna * (larghezzaBox + spazio);
+            let yBox = 205 + riga * (altezzaBox + 20);
+
+            // riquadro blu
+            fill(boxColor);
+            rect(xBox, yBox, larghezzaBox, altezzaBox);
+
+            // anno nel colore della pagina principale
+            textAlign(LEFT, BASELINE);
+            fill(colorScale[years[i]]);
+            textStyle(BOLD);
+            textSize(20);
+            text(years[i], xBox + 20, yBox + 32);
+            textStyle(NORMAL);
+
+            // fiore a sinistra nel riquadro
             let lungF = map(f, 0, massimo, 0, maxLength);
             let lungM = map(m, 0, massimo, 0, maxLength);
-            mioFiore(xFiore, yFiore, lungF, lungM);
+            mioFiore(xBox + 150, yBox + altezzaBox - 25, lungF, lungM);
 
-            // anno e numeri sotto il fiore
-            textAlign(CENTER, TOP);
-            fill(textColor);
-            textStyle(BOLD);
-            textSize(16);
-            text(years[i], xFiore, yFiore + 20);
-            textStyle(NORMAL);
-            textSize(14);
-            text("totale " + totale, xFiore, yFiore + 44);
-            textSize(13);
+            // numeri grandi a destra nel riquadro
+            let xNumeri = xBox + 300;
+
             fill(femmineColor);
-            text("femmine " + f, xFiore, yFiore + 68);
+            textSize(36);
+            text(f, xNumeri, yBox + 64);
+            textSize(14);
+            text("femmine (" + percF + "%)", xNumeri, yBox + 84);
+
             fill(maschiColor);
-            text("maschi " + m, xFiore, yFiore + 88);
-            textAlign(LEFT, TOP);
-    
+            textSize(36);
+            text(m, xNumeri, yBox + 134);
+            textSize(14);
+            text("maschi (" + percM + "%)", xNumeri, yBox + 154);
+
+            fill(textColor);
+            text("totale " + totale, xNumeri, yBox + 188);
         }
 
-    } else {
-        // codice non presente nel CSV
-        fill(textColor);
-        textStyle(BOLD);
-        textSize(28);
-        text("Paese non trovato", margin, 55);
-    }
+    } 
+
 }
 
 // Fiore con 2 petali verticali
