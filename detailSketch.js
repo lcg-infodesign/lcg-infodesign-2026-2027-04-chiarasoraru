@@ -121,9 +121,6 @@ function draw() {
             let m = maschi[i];
             let totale = int(countryRow.get(years[i]));   // colonne 2020-2023
 
-            // percentuali 
-            let percF = round(f / totale * 100);
-            let percM = round(m / totale * 100);
 
             // colonna
             let colonna = i % 2;
@@ -161,14 +158,13 @@ function draw() {
             textSize(36);
             text(f, xNumeri, yBox + 64);
             textSize(14);
-            text("femmine (" + percF + "%)", xNumeri, yBox + 84);
+             text("femmine", xNumeri, yBox + 84);
 
             fill(maschiColor);
             textSize(36);
             text(m, xNumeri, yBox + 134);
             textSize(14);
-            text("maschi (" + percM + "%)", xNumeri, yBox + 154);
-
+            text("maschi", xNumeri, yBox + 154);
             fill(textColor);
             text("totale " + totale, xNumeri, yBox + 188);
         }
