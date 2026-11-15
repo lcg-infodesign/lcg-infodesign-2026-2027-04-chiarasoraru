@@ -1,7 +1,6 @@
 let backgroundColor = '#1E243C';
 let boxColor = '#2D3458';
 let textColor = '#FFFFFF';
-let accentColor = '#EBD84B';
 let linkHoverColor = '#D6ECFF'; 
 let femmineColor = '#8A5CF5';  // viola
 let maschiColor = '#FF9F3F';   // arancione
@@ -18,11 +17,13 @@ let colorScale = {
 
 // stessa roba
 let margin = 40;
-let headerHeight = 140;
 
 // variabile in cui salvo dati
 let data;
 let selectedCountryCode;
+
+// true quando il mouse è sopra il link 
+let sopraLink = false;
 
 async function setup() {
 
@@ -49,7 +50,7 @@ function draw() {
     // Link Torna a tutti i paesi
     let linkText = '← Torna a tutti i paesi';
     let linkColor = textColor;          // colore normale
-    if (overLink()) {
+    if (sopraLink()) {
         linkColor = linkHoverColor;     // mouse sopra
     }
     
@@ -164,7 +165,7 @@ function draw() {
             textSize(36);
             text(m, xNumeri, yBox + 134);
             textSize(14);
-            text("maschi", xNumeri, yBox + 154);
+              text("maschi", xNumeri, yBox + 154);
             fill(textColor);
             text("totale " + totale, xNumeri, yBox + 188);
         }
