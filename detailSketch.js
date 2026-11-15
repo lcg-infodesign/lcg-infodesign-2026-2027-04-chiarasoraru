@@ -55,11 +55,11 @@ function draw() {
     
     
     fill(linkColor);
-    textSize(15);
-    text(linkText, margin, 20);
+    textSize(20);
+    text(linkText, margin, 17);
     if (overLink()) {
         stroke(linkColor);
-        strokeWeight(2);
+        strokeWeight(1.5);
         line(margin, 40, margin + textWidth(linkText), 40);  // sottolineatura
         noStroke(); 
       }
