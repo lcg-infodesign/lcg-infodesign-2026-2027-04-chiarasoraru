@@ -46,28 +46,31 @@ function draw() {
 
     // impostazioni per tutti i testi
     noStroke();
+
+    //mouse false true
+     sopraLink = false;
+    if (mouseX > margin && mouseX < margin + 210 && mouseY > 15 && mouseY < 42) {
+        sopraLink = true;
+    }
     
     // Link Torna a tutti i paesi
     let linkText = '← Torna a tutti i paesi';
     let linkColor = textColor;          // colore normale
-    if (sopraLink()) {
+        if (sopraLink) {
         linkColor = linkHoverColor;     // mouse sopra
     }
     
     
     fill(linkColor);
     textSize(20);
-    text(linkText, margin, 17);
-    if (overLink()) {
+    text(linkText, margin, 35);
+  if (sopraLink) {
         stroke(linkColor);
         strokeWeight(1.5);
-        line(margin, 40, margin + textWidth(linkText), 40);  // sottolineatura
+        line(margin, 40, margin + 210, 40);  // sottolineatura
         noStroke(); 
       }
         
-
-    // manina
-    cursor(overLink() ? 'pointer' : 'default');
     
      //riga paese
     let countryRow = data.findRow(selectedCountryCode, "Codice");
@@ -201,14 +204,9 @@ function mioFiore(_x, _y, _lungF, _lungM) {
 } 
 
 
-// torna a tutti i paesi
-function overLink() {
-    return mouseX > margin && mouseX < margin + 190 && mouseY > 15 && mouseY < 42;
-}
-
 //torna alla pagina di insieme
 function mouseClicked() {
-    if (overLink()) {
+    if (sopraLink) {
         window.location.href = 'index.html';
     }
 }
