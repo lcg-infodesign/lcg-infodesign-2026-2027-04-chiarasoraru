@@ -55,12 +55,11 @@ function draw() {
     
     
     fill(linkColor);
-    textStyle(BOLD);
     textSize(15);
     text(linkText, margin, 20);
     if (overLink()) {
         stroke(linkColor);
-        strokeWeight(1.5);
+        strokeWeight(2);
         line(margin, 40, margin + textWidth(linkText), 40);  // sottolineatura
         noStroke(); 
       }
@@ -88,6 +87,7 @@ function draw() {
         fill(textColor);
         textSize(13);
         text("Legenda:", xLegenda, margin + 14);
+         textStyle(NORMAL);
         text("Ogni riquadro è un anno.", xLegenda, margin + 34);
         text("Più il petalo è lungo, più bambini sono nati.", xLegenda, margin + 52);
         fill(femmineColor);
@@ -96,8 +96,7 @@ function draw() {
         fill(maschiColor);
         ellipse(xLegenda + 106, margin + 76, 8, 18);
         text("maschi", xLegenda + 118, margin + 81);
-        fill(textColor);
-        text("La scala è la stessa per tutti e 4 gli anni.", xLegenda, margin + 106);
+        
        
          // femmine e maschi di ogni anno e valore più alto 
         let femmine = [];
@@ -178,7 +177,7 @@ function draw() {
 
 }
 
-// Fiore con 2 petali verticali
+// Fiore 
 function mioFiore(_x, _y, _lungF, _lungM) {
     push();
     translate(_x, _y);
