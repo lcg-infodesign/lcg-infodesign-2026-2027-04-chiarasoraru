@@ -29,7 +29,7 @@ async function setup() {
     //carico i dati
     data = await loadTable("assets/nascite_MF.csv", ",", "header");
 
-    // Legge i parametri passati nell’URL (es. ?famine=123)
+    // Parametri passati nell’URL 
     let params = getURLParams();
 
     selectedCountryCode = params.paese;
@@ -82,6 +82,7 @@ function draw() {
         textStyle(BOLD);
         textSize(32);
         text(countryRow.get("Paese"), margin, 90);
+        textStyle(NORMAL);
         textSize(14);
         text("In dettaglio, quante femmine e maschi sono nati dal 2020 al 2023", margin, 118);
 
@@ -208,7 +209,7 @@ function mioFiore(_x, _y, _lungF, _lungM) {
 
 
 //torna alla pagina di insieme
-function mouseClicked() {
+function mousePressed() {
     if (sopraLink) {
         window.location.href = 'index.html';
     }
