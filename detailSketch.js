@@ -7,7 +7,6 @@ let maschiColor = '#FF9F3F';   // arancione
 
 // colori CSV uguali in tuttele pagines
 let years = ["2020", "2021", "2022", "2023"];
-let angles = [-90, 0, 90, 180];
 let colorScale = {
     '2020': '#C9B1E0',
     '2021': '#EBD84B',
@@ -111,7 +110,12 @@ function draw() {
             let m = int(countryRow.get("M_" + years[i]));
             femmine.push(f);
             maschi.push(m);
-            massimo = max(massimo, f, m);
+            if (f > massimo) {
+                massimo = f;
+            }
+            if (m > massimo) {
+                massimo = m;
+            }
         }
        // Un riquadro per ogni anno
         let larghezzaBox = 520;
@@ -143,12 +147,11 @@ function draw() {
             rect(xBox, yBox, larghezzaBox, altezzaBox);
 
             // anno nel colore della pagina principale
-            textAlign(LEFT, BASELINE);
             fill(colorScale[years[i]]);
             textStyle(BOLD);
-            textSize(20);
-            text(years[i], xBox + 20, yBox + 32);
+            textSize(22);
             textStyle(NORMAL);
+            text(years[i], xBox + 20, yBox + 32);
 
             // fiore a sinistra nel riquadro
             let lungF = map(f, 0, massimo, 0, maxLength);
@@ -209,8 +212,4 @@ function mouseClicked() {
     if (sopraLink) {
         window.location.href = 'index.html';
     }
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
 }
